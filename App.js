@@ -1,20 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, TextInput} from 'react-native';
+import { StyleSheet, Text, View, ScrollView} from 'react-native';
 
 export default function App() {
   const [name, setName] = useState("BlockSafe");
+  const [people, setPeople] = useState([
+    {name:"Alex", key:"1"},
+    {name:"Martin", key:"2"},
+    {name:"Josh", key:"3"},
+    {name:"Carl", key:"4"},
+    {name:"Peter", key:"5"},
+    {name:"Moses", key:"6"},
+    {name:"Davis", key:"7"},
+    {name:"Ruth", key:"8"},
+    {name:"Cissy", key:"9"},
+    {name:"Jovan", key:"10"},
+    {name:"Blessing", key:"11"},
+  ])
 
   const changeHandler = (value) => {
     setName(value)
   }
   return (
     <View style={styles.container}>
-      <View style={styles.circle}>
-        <Text style={styles.text}>{name}</Text>
-        <TextInput placeholder='Enter a title...' style={styles.input} onChangeText={(val) => changeHandler(val)}/>
-      </View>
-      <StatusBar style="auto" />
+      <ScrollView>
+      {people.map((item) => {
+        return (
+          <View key={item.key}>
+            <Text style={styles.item}>{item.name}</Text>
+          </View>
+        )
+      })}
+      </ScrollView>
     </View>
   );
 }
@@ -22,37 +39,17 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ADD8E6',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
+    paddingTop: 40,
+    paddingHorizontal:20,
+    //alignItems: 'center',
+    //justifyContent: 'center',
   },
 
-  circle : {
+  item: {
+    marginTop:20,
     padding: 30,
-    alignItems: 'center',
-    backgroundColor: "#191970",
-    width : Dimensions.get("window").width*1.8,
-    height: Dimensions.get("window").width*1.8,
-    borderRadius: Dimensions.get("window").width,
-    position: "relative",
-    bottom:-Dimensions.get("window").height + Dimensions.get("window").width*1.5
-  },
-
-  text: {
-    color: "white",
-    fontSize: 40
-  }, 
-
-  input : {
-    borderRadius: 5,
-    borderWidth:1,
-    borderColor: "black",
-    backgroundColor: 'white',
-    padding: 8,
-    margin: 10,
-    alignItems: 'center',
-    width: 200,
-    position: "relative",
-    bottom: -Dimensions.get("window").height + Dimensions.get("window").width
+    fontSize: 24,
+    backgroundColor: "pink"
   }
-});
+})
